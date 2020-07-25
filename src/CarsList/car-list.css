@@ -1,0 +1,13 @@
+.car-list-container {
+    margin: 0 auto;
+    width: 50vw;
+}
+
+.car-list-container ul {
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+
+/*.car-list-controls {*/
+/*    text-align: center;*/
+/*}*/

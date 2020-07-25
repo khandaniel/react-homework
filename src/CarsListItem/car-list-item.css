@@ -1,0 +1,10 @@
+.car-item-color::before {
+    /*content: ' ';*/
+}
+.car-item-color {
+    float: right;
+    min-height: 15px;
+    min-width: 15px;
+    display: inline-block;
+    margin-right: 10px;
+}
