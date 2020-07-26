@@ -8,6 +8,19 @@
     padding-inline-start: 0;
 }
 
-/*.car-list-controls {*/
-/*    text-align: center;*/
-/*}*/
+.car-list-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 80px;
+}
+
+.car-list-controls__add {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.car-list-controls__filter > :first-child {
+    margin-right: 20px;
+}

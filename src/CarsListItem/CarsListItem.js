@@ -7,7 +7,7 @@ const CarsListItem = (props) => {
     return (
         <li>
             { model }
-            <span className="car-item-color" style={{ backgroundColor: color }}></span>
+            <span className="car-item-color" style={ { backgroundColor: color } }></span>
         </li>
     );
 }

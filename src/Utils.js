@@ -1,4 +1,4 @@
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 export const initialCarsList = [
     {
@@ -27,7 +27,7 @@ export const addNewCar = (name, color, list = []) => {
     list.push({
         id: uuidv4(),
         model: name ? name : 'New Car',
-        color: color
+        color: color ? color : 'blue'
     });
 
     return list;

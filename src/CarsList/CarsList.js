@@ -46,7 +46,7 @@ class CarsList extends Component {
     }
 
     onRemoveButtonClick = () => {
-        const {items} = this.state;
+        const { items } = this.state;
 
         const newItems = [...items];
         newItems.shift();
@@ -63,7 +63,7 @@ class CarsList extends Component {
     }
 
     onFilterButtonClick = () => {
-        const {filterColor} = this.state;
+        const { filterColor } = this.state;
         this.setState({
             applyColorFilter: filterColor
         });
@@ -74,7 +74,7 @@ class CarsList extends Component {
 
         const listItems = items.map(({id, model, color}) => {
             if (!applyColorFilter || (applyColorFilter && applyColorFilter === color)) {
-                return <CarsListItem key={ id } model={model} color={color} />;
+                return <CarsListItem key={ id } model={ model } color={ color } />;
             }
 
             return null;
@@ -88,26 +88,28 @@ class CarsList extends Component {
             <div className="car-list-container">
                 <h1>Cars</h1>
                 <ul>
-                    {listItems}
+                    { listItems }
                 </ul>
                 <div className="car-list-controls">
-                    <div>
+                    <div className="car-list-controls__add">
                         <input type="text"
+                               placeholder="Enter new Car Name"
                                value={ newCarName }
                                onChange={ this.onCarNameKeyUpOrChange }
                                onKeyUp={ this.onCarNameKeyUpOrChange }
                         />
                         <input type="text"
+                               placeholder="Enter new Car Color"
                                value={ newCarColor }
                                onKeyUp={ this.onColorKeyUpOrChange }
                                onChange={ this.onColorKeyUpOrChange }
                         />
                         <button onClick={ this.onAddButtonClick }>Add</button>
                     </div>
-                    <div>
+                    <div className="car-list-controls__filter">
                         <select defaultValue={ filterColor }
                                 onChange={ this.onFilterChange }>
-                            <option value="none">None</option>
+                            <option value="none">Filter by Color:</option>
                             { colorOptions }
                         </select>
                         <button onClick={ this.onFilterButtonClick }>Filter</button>
