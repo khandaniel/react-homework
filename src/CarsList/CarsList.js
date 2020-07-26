@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { v4 as uuidv4 } from 'uuid';
 import CarsListItem from "../CarsListItem";
-import { initialCarsList } from "../Utils";
+import { initialCarsList, addNewCar, getUniqueCarColors } from "../Utils";
 import './car-list.css';
 
 class CarsList extends Component {
@@ -16,20 +15,8 @@ class CarsList extends Component {
 
     onAddButtonClick = () => {
         const {newCarName, newCarColor, items} = this.state;
-        const newCarItems = [
-            ...items,
-            {
-                id: uuidv4(),
-                model: newCarName ? newCarName : 'New Car',
-                color: newCarColor
-            }
-        ];
-
-        const newColors = newCarItems
-            .map(item => item.color)
-            .filter((color, index, allColors) => {
-                return allColors.indexOf(color) === index;
-            });
+        const newCarItems = addNewCar(newCarName, newCarColor, [...items]);
+        const newColors = getUniqueCarColors(newCarItems);
 
         this.setState({
             newCarName: '',
