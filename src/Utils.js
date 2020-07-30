@@ -23,14 +23,12 @@ export const initialCarsList = [
     },
 ];
 
-export const addNewCar = (name, color, list = []) => {
-    list.push({
+export const addNewCar = (name, color) => {
+    return {
         id: uuidv4(),
         model: name ? name : 'New Car',
         color: color ? color : 'blue'
-    });
-
-    return list;
+    };
 }
 
 export const getUniqueCarColors = carsList => {

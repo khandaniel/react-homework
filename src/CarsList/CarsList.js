@@ -13,9 +13,22 @@ class CarsList extends Component {
         applyColorFilter: null
     }
 
+    carNameInput = null;
+    colorInput = null
+
+    setCarNameRef = el => {
+        this.carNameInput = el;
+    }
+
+    setColorRef = el => {
+        this.colorInput = el;
+    }
+
     onAddButtonClick = () => {
-        const {newCarName, newCarColor, items} = this.state;
-        const newCarItems = addNewCar(newCarName, newCarColor, [...items]);
+        const { state: {newCarName, newCarColor, items}, carNameInput } = this;
+
+        const newCarItems = [...items];
+        newCarItems.push(addNewCar(newCarName, newCarColor));
         const newColors = getUniqueCarColors(newCarItems);
 
         this.setState({
@@ -23,11 +36,12 @@ class CarsList extends Component {
             items: newCarItems,
             colors: newColors
         });
+        carNameInput.focus();
     }
 
     onCarNameKeyUpOrChange = ({ keyCode, target: { value } }) => {
         if (keyCode === 13) {
-            this.onAddButtonClick();
+            this.colorInput.focus();
             return;
         }
         this.setState({
@@ -70,7 +84,17 @@ class CarsList extends Component {
     }
 
     render() {
-        const { newCarName, newCarColor, items, colors, filterColor, applyColorFilter } = this.state;
+        const {
+            state: { newCarName, newCarColor, items, colors, filterColor, applyColorFilter },
+            onCarNameKeyUpOrChange,
+            onColorKeyUpOrChange,
+            onAddButtonClick,
+            onFilterChange,
+            onFilterButtonClick,
+            onRemoveButtonClick,
+            setCarNameRef,
+            setColorRef
+        } = this;
 
         const listItems = items.map(({id, model, color}) => {
             if (!applyColorFilter || (applyColorFilter && applyColorFilter === color)) {
@@ -94,27 +118,29 @@ class CarsList extends Component {
                     <div className="car-list-controls__add">
                         <input type="text"
                                placeholder="Enter new Car Name"
+                               ref={ setCarNameRef }
                                value={ newCarName }
-                               onChange={ this.onCarNameKeyUpOrChange }
-                               onKeyUp={ this.onCarNameKeyUpOrChange }
+                               onChange={ onCarNameKeyUpOrChange }
+                               onKeyUp={ onCarNameKeyUpOrChange }
                         />
                         <input type="text"
                                placeholder="Enter new Car Color"
+                               ref={ setColorRef }
                                value={ newCarColor }
-                               onKeyUp={ this.onColorKeyUpOrChange }
-                               onChange={ this.onColorKeyUpOrChange }
+                               onKeyUp={ onColorKeyUpOrChange }
+                               onChange={ onColorKeyUpOrChange }
                         />
-                        <button onClick={ this.onAddButtonClick }>Add</button>
+                        <button onClick={ onAddButtonClick }>Add</button>
                     </div>
                     <div className="car-list-controls__filter">
                         <select defaultValue={ filterColor }
-                                onChange={ this.onFilterChange }>
+                                onChange={ onFilterChange }>
                             <option value="none">Filter by Color:</option>
                             { colorOptions }
                         </select>
-                        <button onClick={ this.onFilterButtonClick }>Filter</button>
+                        <button onClick={ onFilterButtonClick }>Filter</button>
                     </div>
-                    <button onClick={ this.onRemoveButtonClick }>Remove</button>
+                    <button onClick={ onRemoveButtonClick }>Remove</button>
                 </div>
             </div>
         );
